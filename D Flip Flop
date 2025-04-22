@@ -1,0 +1,42 @@
+D Flip Flop : 
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity D_FF is
+    Port (
+        led_n : out STD_LOGIC_VECTOR(3 downto 0);
+        led_p : out STD_LOGIC_VECTOR(3 downto 0);
+        D     : in  STD_LOGIC
+    );
+end D_FF;
+
+architecture Behavioral of D_FF is
+begin
+
+    -- Set default values for LEDs
+    led_n(3 downto 1) <= "111";
+    led_p(3 downto 0) <= "0001";
+
+    -- Process block that responds to D input
+    process(D)
+    begin
+        led_n(0) <= not D;  -- Output is the negation of D
+    end process;
+
+end Behavioral;
+
+
+UCF Code : 
+
+NET "led_n<0>" LOC = "P132";
+NET "led_n<1>" LOC = "P131";
+NET "led_n<2>" LOC = "P130";
+NET "led_n<3>" LOC = "P128";
+
+NET "led_p<0>" LOC = "P126";
+NET "led_p<1>" LOC = "P133";
+NET "led_p<2>" LOC = "P135";
+NET "led_p<3>" LOC = "P137";
+
+NET "D" LOC = "P87";
