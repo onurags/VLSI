@@ -1,0 +1,89 @@
+Finite State Machine : 
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity mealymachine is
+    Port (
+        led_p : out STD_LOGIC_VECTOR (3 downto 0);
+        led_n : out STD_LOGIC_VECTOR (3 downto 0);
+        x     : in STD_LOGIC;
+        DIS   : out STD_LOGIC_VECTOR (1 downto 0);
+        SEG   : out STD_LOGIC_VECTOR (6 downto 0);
+        y     : in STD_LOGIC_VECTOR (1 downto 0)
+    );
+end mealymachine;
+
+architecture Behavioral of mealymachine is
+begin
+    led_n(3 downto 2) <= "11";
+    led_p(3 downto 0) <= "0001";
+    DIS <= "10";
+
+    process (x, y)
+    begin
+        led_n(1) <= not ((not y(0)) and x);
+        led_n(0) <= not ((y(0) or y(1)) and x);
+
+        if (y = "00") then
+            if (x = '0') then
+                SEG <= "1000000";
+            else
+                SEG <= "1000000";
+            end if;
+        end if;
+
+        if (y = "01") then
+            if (x = '0') then
+                SEG <= "1111001";
+            else
+                SEG <= "1000000";
+            end if;
+        end if;
+
+        if (y = "10") then
+            if (x = '0') then
+                SEG <= "1111001";
+            else
+                SEG <= "1000000";
+            end if;
+        end if;
+
+        if (y = "11") then
+            if (x = '0') then
+                SEG <= "1111001";
+            else
+                SEG <= "1000000";
+            end if;
+        end if;
+    end process;
+end Behavioral;
+
+
+UCF Code : 
+
+Net "DIS<0>"   loc = "p141";
+Net "DIS<1>"   loc = "p144";
+
+Net "SEG<0>"   loc = "p148";
+Net "SEG<1>"   loc = "p147";
+Net "SEG<2>"   loc = "p146";
+Net "SEG<3>"   loc = "p143";
+Net "SEG<4>"   loc = "p140";
+Net "SEG<5>"   loc = "p138";
+Net "SEG<6>"   loc = "p139";
+
+Net "led_n<0>" loc = "p132";
+Net "led_n<1>" loc = "p131";
+Net "led_n<2>" loc = "p130";
+Net "led_n<3>" loc = "p128";
+
+Net "led_p<0>" loc = "p126";
+Net "led_p<1>" loc = "p133";
+Net "led_p<2>" loc = "p135";
+Net "led_p<3>" loc = "p137";
+
+Net "y<0>"     loc = "p101";
+Net "y<1>"     loc = "p100";
+
+Net "x"        loc = "p97";
