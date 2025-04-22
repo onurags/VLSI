@@ -1,0 +1,48 @@
+JK Flip Flop : 
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity JK_FF is
+    Port (
+        inp   : in  STD_LOGIC_VECTOR(1 downto 0);
+        Q     : in  STD_LOGIC;
+        led_n : out STD_LOGIC_VECTOR(3 downto 0);
+        led_p : out STD_LOGIC_VECTOR(3 downto 0)
+    );
+end JK_FF;
+
+architecture Behavioral of JK_FF is
+begin
+
+    -- Set default values for LEDs
+    led_n(3 downto 1) <= "111";
+    led_p(3 downto 0) <= "0001";
+
+    -- Conditional assignment based on inp
+    with inp select
+        led_n(0) <= not Q when "00",
+                     '0'   when "01",
+                     '1'   when "10",
+                     Q     when "11",
+                     'Z'   when others;
+
+end Behavioral;
+
+
+UCF Code : 
+
+NET "led_n<0>" LOC = "P132";
+NET "led_n<1>" LOC = "P131";
+NET "led_n<2>" LOC = "P130";
+NET "led_n<3>" LOC = "P128";
+
+NET "led_p<0>" LOC = "P126";
+NET "led_p<1>" LOC = "P133";
+NET "led_p<2>" LOC = "P135";
+NET "led_p<3>" LOC = "P137";
+
+NET "inp<0>"   LOC = "P101";
+NET "inp<1>"   LOC = "P100";
+
+NET "Q"        LOC = "P97";
