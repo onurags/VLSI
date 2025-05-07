@@ -39,3 +39,64 @@ always @(*) begin
 end
 
 endmodule
+
+
+
+
+TEST BENCH CODE : 
+
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   15:51:51 04/02/2024
+// Design Name:   encoder_8_3
+// Module Name:   C:/Xilinx/VLSI_project/verilog_encoder_sph/test_bench.v
+// Project Name:  verilog_encoder_sph
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: encoder_8_3
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module test_bench;
+
+    // Inputs
+    reg [7:0] i;
+
+    // Outputs
+    wire [2:0] o;
+
+    // Instantiate the Unit Under Test (UUT)
+    encoder_8_3 uut (
+        .o(o), 
+        .i(i)
+    );
+
+    initial begin
+        // Initialize Inputs
+        i = 8'h01;
+
+        // Wait 100 ns for global reset to finish
+        #1  i = 8'h02;
+        #1  i = 8'h04;
+        #1  i = 8'h08;
+        #1  i = 8'h10;
+        #1  i = 8'h20;
+        #1  i = 8'h40;
+        #1  i = 8'h80;
+    end
+
+    initial #18 $finish;
+      
+endmodule
